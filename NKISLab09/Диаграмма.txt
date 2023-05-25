@@ -1,0 +1,44 @@
+https://support.microsoft.com/en-us/office/create-a-chart-on-a-form-or-report-1a463106-65d0-4dbb-9d66-4ecb737ea7f7 
+
+	Rashod:
+SELECT cars.model, cars.gosnomer, cars.godvyp, cars.lna1km, Lists.kmsOut, Lists.kmsRet, Lists.kmsRet - Lists.kmsOut AS Probeg, round((Lists.kmsRet-Lists.kmsOut)*cars.lna1km,1) AS Rashod
+FROM cars INNER JOIN Lists ON cars.id = Lists.idCar
+WHERE Lists.kmsRet > 0;
+
+	RashodDet:
+SELECT Rashod.gosnomer, Sum(Rashod.Rashod) AS [Rashod]
+FROM Rashod 
+GROUP BY Rashod.gosnomer
+ORDER BY Rashod.gosnomer;
+
+	RashodAvr:
+SELECT Avg(RashodDet.Rashod) AS AvgRashod FROM RashodDet;
+
+	RashodP2:
+SELECT RashodDet.gosnomer, RashodDet.Rashod AS RashodDt, RashodAvr.AvgRashod
+FROM RashodDet, RashodAvr;
+
+Создать Форму (лучше Отчет) -> Конструктор Форм -> Свойства Формы -> 
+	Источник записей: 
+SELECT RashodDet.gosnomer, RashodDet.Rashod FROM RashodDet; или RashodP2
+
+ДИАГРАММА -> Конструктор -> Вставка современной диаграммы -> Гистограмма -> Комбинированная ->
+
+	Источник строк: RashodP2
+	-> автоматически Преобразованный источник строк: 
+SELECT [gosnomer], Sum([RashodDt]) AS [SumOfRashodDt] FROM [RashodP2] GROUP BY [gosnomer] ORDER BY [gosnomer]
+
+Параметры диаграммы  Данные:
+	Таблицы и запросы: RashodP2
+	Ось: gosnomer
+	Значения (ось Y): RashodDt;AvgRashod
+
+Параметры диаграммы  Формат:
+	SumOfRashodDt
+		Гистограмма с группировкой, Цвет Синий
+	SumOfAvgRashod
+		График, Сплошная линия, Цвет Красный
+
+Сохранить, Закрыть
+	
+	

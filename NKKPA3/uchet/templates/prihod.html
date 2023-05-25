@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Автомагазин</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Заказы оприходованы по доступности товаров</h2>
+<p> </p>
+<a href="/manager/">На Главную</a>
+<p> </p>
+    <h2>Не оприходованные заказы</h2>
+<p> </p>	
+<table class=MsoTableGrid border=1 cellspacing=2 cellpadding=4 >
+ <tr>
+  <td width=40 align="center" >  <p>Номер заказа</p> </td>
+  <td width=280 align="center" > <p>Товар</p> </td>
+  <td width=120 align="center" > <p>Не поставленное количество</p> </td>
+  <td width=80 align="center" > <p>Eдиница измерения</p> </td>
+ </tr>
+{% for item in items %}
+ <tr>
+  <td align="center" > <p>{{item.order_id}}</p> </td>
+  <td> <p>{{item.namet}}</p> </td>
+  <td align="center" > <p>{{item.qty}}</p> </td>
+  <td align="center" > <p>{{item.unit}}</p> </td>
+ </tr>
+{% endfor %}
+</table>
+</body>
+</html>

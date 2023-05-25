@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Автомагазин</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Ожидаемые поставки</h2>
+<p> </p>
+<a href="/manager/">На Главную</a> | <a href="/manager/doppost/">Дополнительная поставка</a>
+
+<p> </p>
+	
+<table class=MsoTableGrid border=1 cellspacing=1 cellpadding=4 >
+ <tr>
+  <td width=40 align="center" >  <p>Номер поставки</p> </td>
+  <td width=40 align="center" >  <p>Номер заказа</p> </td>
+  <td width=180 align="center" > <p>Товар</p> </td>
+  <td width=80 align="center" > <p>Количество</p> </td>
+  <td width=80 align="center" > <p>Eдиница измерения</p> </td>
+  <td width=100 align="center" > <p>Цена за единицу   (руб)</p> </td>
+  <td width=80 align="center" > <p>Стоимость   (руб)</p> </td>  
+  <td width=132 align="center" > <p>Поставщик</p> </td>
+  
+ </tr>
+{% for item in items %}
+ <tr >
+  <td align="center" > <p>{{item.id}}</p> </td>
+  {% if item.order_id == null  %}
+  <td align="center" > <p>Нет</p> </td>
+  {% else %}
+  <td align="center" > <p>{{item.order_id}}</p> </td>
+  {% endif %}
+  <td> <p>{{item.namet}}</p> </td>
+  <td align="center" > <p>{{item.qty}}</p> </td>
+  <td align="center" > <p>{{item.unit}}</p> </td>
+  <td align="right" > <p>{{item.price}}</p> </td>
+  <td align="right" > <p>{{item.cost}}</p> </td>
+  <td> <p>{{item.name}}</p> </td>
+ </tr>
+{% endfor %}
+</table>
+<p> </p>
+<form method="POST">
+   {% csrf_token %}
+<table>
+  <tr>
+    <th> <label for="id_z_id">Номер поставки:</label> </th>
+    <td> <select name="z_id" id="id_z_id">
+{% for item in items %}
+  <option value="{{item.id}}">{{item.id}}</option>
+{% endfor %}
+        </select> </td>
+  </tr>
+</table>
+<p> </p>
+<input type="submit" value="Принять поставку" >
+</form>
+</body>
+</html>

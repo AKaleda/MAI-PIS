@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Автомагазин</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>{{what}}</h2>
+<p> </p>
+<a href="/">Все заказы</a> | <a href="/zakazyopen/">Не выполненные заказы</a> | 
+<a href="/zakazyclosed/">Выполненные заказы</a> | <a href="/zakazycosts/">Не выданные заказы</a> 
+
+<p> </p>
+	
+<table class=MsoTableGrid border=1 cellspacing=1 cellpadding=4 >
+ <tr>
+  <td width=40 align="center" >  <p>Номер заказа</p> </td>
+  <td width=40 align="center" >  <p>Номер поставки</p> </td>
+  <td width=180 align="center" > <p>Товар</p> </td>
+  <td width=80 align="center" > <p>Количество</p> </td>
+  <td width=80 align="center" > <p>Eдиница измерения</p> </td>
+  <td width=100 align="center" > <p>Цена за единицу   (руб)</p> </td>
+  <td width=80 align="center" > <p>Стоимость   (руб)</p> </td>  
+  <td width=132 align="center" > <p>Поставщик</p> </td>
+  <td width=40 align="center" > <p>Поступил</p> </td>  
+  <td width=40 align="center" > <p>Оприходован</p> </td>  
+  
+ </tr>
+{% for it in items %}
+ <tr >
+  <td align="center" > <p>{{it.order_id}}</p> </td>
+  <td align="center" > <p>{{it.zayavka_id}}</p> </td>
+  <td> <p>{{it.namet}}</p> </td>
+  <td align="center" > <p>{{it.qty}}</p> </td>
+  <td align="center" > <p>{{it.unit}}</p> </td>
+  <td align="right" > <p>{{it.price}}</p> </td>
+  <td align="right" > <p>{{it.cost}}</p> </td>
+  <td> <p>{{it.namep}}</p> </td>
+  <td align="center" > <p>{{it.postupil}}</p> </td>
+  <td align="center" > <p>{{it.oprih}}</p> </td>
+ </tr>
+{% endfor %}
+</table>
+</body>
+</html>

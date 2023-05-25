@@ -1,0 +1,28 @@
+CREATE TABLE `empls` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fio` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`fio`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `credits` (
+  `idCr` int NOT NULL AUTO_INCREMENT,
+  `idEmpl` int NOT NULL,
+  `dt` date NOT NULL,
+  `amount` int NOT NULL,
+  PRIMARY KEY (`idCr`),
+  UNIQUE KEY `idCr_UNIQUE` (`idCr`),
+  KEY `refEmpls_idx` (`idEmpl`),
+  CONSTRAINT `refEmpls` FOREIGN KEY (`idEmpl`) REFERENCES `empls` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`dev`@`localhost` SQL SECURITY DEFINER VIEW `dev`.`creditsinfo` AS 
+select `dev`.`credits`.`idCr` AS `idCr`,`dev`.`empls`.`fio` AS `fio`,`dev`.`credits`.`dt` AS `dt`,`dev`.`credits`.`amount` AS `amount` 
+from (`dev`.`credits` join `dev`.`empls`) 
+where (`dev`.`credits`.`idEmpl` = `dev`.`empls`.`id`);
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`dev`@`localhost` SQL SECURITY DEFINER VIEW `dev`.`creditsums` AS 
+select `dev`.`creditsinfo`.`fio` AS `fio`,sum(`dev`.`creditsinfo`.`amount`) AS `fiosum` 
+from `dev`.`creditsinfo` 
+group by `dev`.`creditsinfo`.`fio` order by `dev`.`creditsinfo`.`fio`;
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Автомагазин</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>{{what}}</h2>
+<p> </p>
+<a href="/">Все заказы</a> | <a href="/zakazyopen/">Не выполненные заказы</a> | 
+<a href="/zakazyclosed/">Выполненные заказы</a> | <a href="/zakazycosts/">Не выданные заказы</a> 
+
+<p> </p>
+	
+<table class=MsoTableGrid border=1 cellspacing=1 cellpadding=4 >
+ <tr>
+  <td width=132 align="center" > <p>Покупатель</p> </td>
+  <td width=40 align="center" >  <p>Номер заказа</p> </td>
+  <td width=80 align="center" > <p>Стоимость  заказа (руб)</p> </td>   
+ </tr>
+{% for it in items %}
+ <tr >
+  <td align="center" > <p>{{it.br}}</p> </td>
+  <td align="center" > <p>{{it.id}}</p> </td>
+  <td align="right" > <p>{{it.costttl}}</p> </td>
+ </tr>
+{% endfor %}
+</table>
+</body>
+</html>
